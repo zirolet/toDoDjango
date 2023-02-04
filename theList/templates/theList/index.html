@@ -1,0 +1,24 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'theList/styles.css' %}">
+{% if not userLoggedIn %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username">
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password">
+        <input type="submit" value="Submit">
+    </form>
+    <a href="{% url 'accountCreation' %}"><input type="button" value="Create An Account"></a>
+    <h1>Welcome Guest! You must Login or Create An Account!</h1>
+{% else %}
+    <a href="{% url 'logout' %}"><input type="button" value="Logout"></a>
+    <h1>Welcome {{ username }}!</h1>
+    <p>This is where you put all of the things you have "To Do"!</p>
+    <a href="{% url 'creation' %}"><input type="button" value="Create new thing to do"></a>
+    <ul>
+        {% for entry in entries %}
+            <li><a href="{% url 'detail' entry.id %}"> {{ entry }} </a></li>
+        {% endfor %}
+    </ul>
+{% endif %}

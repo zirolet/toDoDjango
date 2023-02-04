@@ -1,0 +1,15 @@
+<h1>{{ entry.title }}</h1>
+<h3>{{ entry.entryText }}</h3>
+<form action="{% url 'detail' entry.id %}" method ="post">
+    {% csrf_token %}
+    <label for="title">Edit this entry's title:</label>
+    <br>
+    <input type="text" name="title" id="title" value="{{ entry.title }}">
+    <br>
+    <label for="entryText">Edit this entries' note:</label>
+    <br>
+    <input type="text" name="entryText" id="entryText" value="{{ entry.entryText }}">
+    <br>
+    <input type="submit" value="Submit">
+</form>
+<a href="{% url 'delete' entry.id %}"><input type="button" value="Delete"></a>
